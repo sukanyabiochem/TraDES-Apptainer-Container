@@ -143,7 +143,7 @@ Binaries placed at: /TraDES/ (added to PATH via %environment)
 **`Unable to open input file rotlib.bin.bz2`**
 → Run the command from the directory containing `rotlib.bin.bz2` (i.e., this directory), or copy the file there: `singularity exec trades.sif bash -c "cp /TraDES/* $(pwd)/"`.
 
-**`apptainer-dbgsym` version conflict during install**
+**`apptainer-dbgsym version conflict during install`**
 → Run `sudo dpkg --purge apptainer-dbgsym` before installing.
 
 **`get TraDES from WAYBACK MACHINE 2016`
