@@ -1,0 +1,34 @@
+BootStrap: docker
+From: ubuntu:14.04
+
+%setup
+    cp 120612b_TraDES_Source.tar.gz ${SINGULARITY_ROOTFS}
+    cd ${SINGULARITY_ROOTFS}
+    tar -xvf 120612b_TraDES_Source.tar.gz
+    rm -rf 120612b_TraDES_Source.tar.gz
+
+
+%post 
+    apt-get -y update
+    apt-get -y install build-essential 
+    apt-get -y install autoconf automake gdb git libffi-dev zlib1g-dev libssl-dev
+    apt-get -y install g++ flex libmotif-dev freeglut3-dev libpng-dev x11proto-core-dev libxmu-dev libxft-dev libfontconfig1-dev libjpeg8-dev libxpa-dev csh libxp-dev libxp6 x11proto-print-dev
+    apt-get -y install ncbi-tools-bin libncbi6-dev libncbi6  ncbi-tools-x11
+    apt-get clean
+    cd ${SINGULARITY_ROOTFS}/nusi
+    cp build_scripts/build_Ubuntu_x64.sh .
+    chmod 775 build_Ubuntu_x64.sh
+    ./build_Ubuntu_x64.sh 
+    cd ${SINGULARITY_ROOTFS}
+    mv ${SINGULARITY_ROOTFS}/nusi/TraDES/build ${SINGULARITY_ROOTFS}/TraDES
+    rm -rf ${SINGULARITY_ROOTFS}/nusi
+
+
+%environment
+    export LC_ALL=C
+    export PATH=${SINGULARITY_ROOTFS}/TraDES:$PATH
+
+%runscript
+
+%labels
+    Author skonar@uic.edu
